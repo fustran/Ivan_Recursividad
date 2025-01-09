@@ -36,72 +36,54 @@ Cada vez que dividamos entre 10, aumentamos en 1 nuestro contador.
 
 */ 
 
-import java.util.Scanner;
-
 public class Recursividad {
 
-    private static final Scanner entradaTeclado = new Scanner(System.in);
+    //private static final Scanner entradaTeclado = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        int opcion;
-
-        do {
-            System.out.println("1 - Dígitos");
-            System.out.println("2 - Potencias");
-            System.out.println("3 - Del Revés");
-            System.out.println("4 - Binario");
-            System.out.println("5 - A binario");
-            System.out.println("6 - Orden alfabético");
-            System.out.println("7 - Mostrar suma");
-            System.out.print("Introduce una opción: ");
-            opcion = entradaTeclado.nextInt();
-
-            switch (opcion) {
-                case 1 -> cantidadDigitos(opcion);
-                case 2 -> elevarNumeroAOtro(opcion);
-                case 3 -> numeroInvertido(opcion);
-                case 4 -> comprobarNumeroBinario(opcion);
-                case 5 -> obtenerNumeroBinario(opcion);
-                case 6 -> comprobarPalabraOrdenada(opcion);
-                case 7 -> sumaNumerosNaturales(opcion);
-                default -> System.out.println("Opción incorrecta");
-            }
-        } while (opcion != 11);
+        System.out.println("1 - Dígitos");
+        System.out.println("2 - Potencias");
+        System.out.println("3 - Del Revés");
+        System.out.println("4 - Binario");
+        System.out.println("5 - A binario");
+        System.out.println("6 - Orden alfabético");
+        System.out.println("7 - Mostrar suma");
+        System.out.print("Introduce una opción: ");
     }
 
     //Método para obtener la cantidad de dígitos de un número N mayor que cero.
-    public static void cantidadDigitos(int numero) {
-    
+    public static void cantidadDigitos() {
+
     }
 
     //Método que obtener el resultado de elevar un número a otro.
-    public static void elevarNumeroAOtro(int numero){
+    public static void elevarNumeroAOtro(){
 
     }
 
     //Método para invertir un número positivo.
-    public static void numeroInvertido(int numero){
+    public static void numeroInvertido(){
 
     }
 
     //Método para comprobar si un número es binario.
-    public static void comprobarNumeroBinario(int numero){
+    public static void comprobarNumeroBinario(){
 
     }
 
     //Método que obtenga el número binario de un número N pasado como parámetro. 
-    public static void obtenerNumeroBinario(int numero){
+    public static void obtenerNumeroBinario(){
 
     }
 
     //étodo que compruebe si una palabra está ordenada alfabéticamente.
-    public static void comprobarPalabraOrdenada(int numero){
+    public static void comprobarPalabraOrdenada(){
 
     }
 
     //Método que obtenga la suma de los números naturales desde 1 hasta N.
-    public static void sumaNumerosNaturales(int numero){
+    public static void sumaNumerosNaturales(){
 
     }
 }
