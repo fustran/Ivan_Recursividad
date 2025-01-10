@@ -50,7 +50,7 @@ public class Main {
                     Recursividad.opcionElegida(opcion);
                     validarMenuUno = true;
                 } else {
-                    System.out.println();
+                    System.out.println("");
                     System.out.println("Error: Opción no válida, inténtalo de nuevo.");
                 }
             }
@@ -68,8 +68,7 @@ public class Main {
                         validarMenuDos = true;
                         break;
                     default:
-                        System.out.println("Opción no válida. Inténtalo de nuevo.");
-                        System.out.println();
+                        System.out.println("\nOpción no válida. Inténtalo de nuevo.");
                         break;
                 }
             }

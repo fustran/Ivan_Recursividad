@@ -12,9 +12,8 @@ public class Recursividad {
 
      // Método que imprime el menú de opciones.
     public static void imprimirMenuUno() {
-        System.out.println();
-        System.out.println("Selecciona el modo que quieres ejecutar:");
-        System.out.println();
+        System.out.println("");
+        System.out.println("\nSelecciona el modo que quieres ejecutar:");
         System.out.println("1 - Dígitos");
         System.out.println("2 - Potencias");
         System.out.println("3 - Del Revés");
@@ -27,7 +26,7 @@ public class Recursividad {
 
     // Método para imprimir el menú secundario.
     public static void imprimirMenuDos() {
-        System.out.println();
+        System.out.println("");
         System.out.println("Elige una opción: ");
         System.out.println("   [M] - Volver al menú principal");
         System.out.println("   [X] - Salir");
@@ -37,7 +36,7 @@ public class Recursividad {
     // Método para leer la opción del usuario.
     public static int leerOpcion() {
         while (!entradaTeclado.hasNextInt()) {
-            System.out.println();
+            System.out.println("");
             System.out.println("Error: Introduce un número válido:");
             entradaTeclado.next();
             imprimirMenuUno();
@@ -65,7 +64,7 @@ public class Recursividad {
 
     // Método para obtener la cantidad de dígitos de un número N mayor que cero.
     public static void cantidadDigitos() {
-        System.out.println();
+        System.out.println("");
         System.out.print("Introduce un número: ");
         int numero = entradaTeclado.nextInt();
         int contador = 0;
