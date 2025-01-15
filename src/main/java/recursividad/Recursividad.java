@@ -7,7 +7,15 @@ public class Recursividad {
 
     private static final Scanner entradaTeclado = new Scanner(System.in);
 
+    static char palabra_vector[]=null;
+
     public static void main(String[] args) throws IOException, InterruptedException { // Lanzar excepciones de entrada/salida y de interrupción.
+
+        String palabra = "hola";
+
+        palabra_vector = palabra.toCharArray();
+        int posicion_final = palabra_vector.length;
+        palabraInvertida(posicion_final - 1, palabra);
 
         while (true) {
             // Validar entrada del menú principal.
@@ -16,7 +24,7 @@ public class Recursividad {
                 Recursividad.imprimirMenuUno();
                 int opcion = Recursividad.leerOpcion();
 
-                if (opcion >= 1 && opcion <= 7) {
+                if (opcion >= 1 && opcion <= 8) {
                     Recursividad.opcionElegida(opcion);
                     validarMenuUno = true;
                 } else {
@@ -56,7 +64,7 @@ public class Recursividad {
         System.out.flush();
     }
 
-     // Método que imprime el menú de opciones.
+    // Método que imprime el menú de opciones.
     public static void imprimirMenuUno() throws IOException, InterruptedException {
         //borrar(); // Limpia la consola antes de imprimir el menú (windows=cls, linux=clear)
         System.out.println("");
@@ -100,7 +108,7 @@ public class Recursividad {
 
     // Método que llama al método correspondiente según la opción elegida.
     public static void opcionElegida(int opcion) {
-        switch (opcion) {
+        switch (opcion) { //Este tipo de switch me lo ha sugerido el vs code como corrección. Lo crea más compacto y no hay que usar break.
             case 1 -> {
                 System.out.print("\nIntroduce un número: ");
                 int numeroIntroducido = entradaTeclado.nextInt();
@@ -139,8 +147,18 @@ public class Recursividad {
                 obtenerNumeroBinario(numeroIntroducido);
                 System.out.println();
             }
-            case 7 -> comprobarPalabraOrdenada();
-            case 8 -> sumaNumerosNaturales();
+            case 7 -> {
+                if (comprobarPalabraOrdenada(0)) {
+                    System.out.println("La palabra está ordenada.");
+                } else {
+                    System.out.println("La palabra no está ordenada.");
+                }
+            }
+            case 8 -> {
+                System.out.print("\nIntroduce un número: ");
+                int numeroIntroducido = entradaTeclado.nextInt();
+                System.out.println("\nLa suma de los números naturales es: " + sumaNumerosNaturales(numeroIntroducido));
+            }
         }
     }
 
@@ -189,14 +207,17 @@ public class Recursividad {
 
     //EJERCICIO-5
     // Método para comprobar si un número es binario.
-    public static void comprobarNumeroBinario(int numero) {
-        if (numero == 0) {
+    public static boolean comprobarNumeroBinario(int numero) {
+        if (numero == 0 || numero == 1) {
             System.out.println("El número es binario.");
+            return true;
         } else {
             if (numero % 10 > 1) {
                 System.out.println("El número no es binario.");
+                return false;
             } else {
-                comprobarNumeroBinario(numero / 10);
+                return comprobarNumeroBinario(numero / 10);
+            
             }
         }
     }
@@ -212,15 +233,35 @@ public class Recursividad {
         }
     }
 
+    // Ejercicio 6 - Otra forma
+    public static String aBinario(int numero) {
+        if (numero == 0 || numero == 1) {
+            return Integer.toString(numero);
+        } else {
+            return aBinario(numero / 2) + numero % 2;
+        }
+    }
+
     //EJERCICIO-7
     // Método que comprueba si una palabra está ordenada alfabéticamente.
-    public static void comprobarPalabraOrdenada() {
-    
-    }
+    public static boolean comprobarPalabraOrdenada(int posicion) {
+        if (posicion < palabra_vector.length - 1) {
+            if (palabra_vector[posicion] <= palabra_vector[posicion + 1]) {
+                return comprobarPalabraOrdenada(posicion + 1);
+            }else{
+                return false;
+            }
+        }
+        return true;
+    } 
 
     //EJERCICIO-8
     // Método que obtiene la suma de los números naturales desde 1 hasta N.
-    public static void sumaNumerosNaturales() {
-        
+    public static int sumaNumerosNaturales(int numero) {
+        if (numero == 1) {
+            return 1;
+        } else {
+            return numero + sumaNumerosNaturales(numero - 1);
+        }
     }
 }
