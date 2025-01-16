@@ -11,33 +11,25 @@ public class Recursividad {
 
     public static void main(String[] args) throws IOException, InterruptedException { // Lanzar excepciones de entrada/salida y de interrupción.
 
-        String palabra = "hola";
-
-        palabra_vector = palabra.toCharArray();
-        int posicion_final = palabra_vector.length;
-        palabraInvertida(posicion_final - 1, palabra);
-
         while (true) {
             // Validar entrada del menú principal.
             boolean validarMenuUno = false;
             while (!validarMenuUno) {
-                Recursividad.imprimirMenuUno();
-                int opcion = Recursividad.leerOpcion();
+                imprimirMenuUno();
+                int opcion = leerOpcionInt();
 
                 if (opcion >= 1 && opcion <= 8) {
-                    Recursividad.opcionElegida(opcion);
+                    opcionElegida(opcion);
                     validarMenuUno = true;
                 } else {
-                    System.out.println("");
                     System.out.println("Error: Opción no válida, inténtalo de nuevo.");
                 }
             }
-
             // Validar entrada del menú secundario.
             boolean validarMenuDos = false;
             while (!validarMenuDos) {
-                Recursividad.imprimirMenuDos();
-                String respuesta = Recursividad.leerRespuesta();
+                imprimirMenuDos();
+                String respuesta = leerOpcionMenuDos();
 
                 switch (respuesta) {
                     case "X":
@@ -69,15 +61,15 @@ public class Recursividad {
         //borrar(); // Limpia la consola antes de imprimir el menú (windows=cls, linux=clear)
         System.out.println("");
         System.out.println("\nSelecciona el modo que quieres ejecutar:");
-        System.out.println("1 - Dígitos");
-        System.out.println("2 - Potencias");
-        System.out.println("3 - Número al Revés");
-        System.out.println("4 - Palabra al revés");
-        System.out.println("5 - Binario");
-        System.out.println("6 - A binario");
-        System.out.println("7 - Orden alfabético");
-        System.out.println("8 - Mostrar suma");
-        System.out.print("--> ");
+        System.out.println("    [1] - Dígitos");
+        System.out.println("    [2] - Potencias");
+        System.out.println("    [3] - Invertir número o cadena");
+        System.out.println("    [4] - Es Binario?");
+        System.out.println("    [5] - A binario");
+        System.out.println("    [6] - Orden alfabético");
+        System.out.println("    [7] - Mostrar suma");
+        System.out.println("    [8] - Salir");
+        System.out.print("->");
     }
 
     // Método para imprimir el menú secundario.
@@ -85,80 +77,144 @@ public class Recursividad {
         //clearScreen(); // Limpia la consola antes de imprimir el menú (windows=cls, linux=clear)
         System.out.println("");
         System.out.println("Elige una opción: ");
-        System.out.println("   [M] - Volver al menú principal");
-        System.out.println("   [X] - Salir");
-        System.out.print("--> ");
+        System.out.println("    [M] - Volver al menú principal");
+        System.out.println("    [X] - Salir");
+        System.out.print("-> ");
     }
 
-    // Método para leer la opción del usuario.
-    public static int leerOpcion() {
+    // Método para comprobar la opción de tipo int del usuario.
+    public static int leerOpcionInt() {
         while (!entradaTeclado.hasNextInt()) {
             System.out.println("");
             System.out.println("Error: Introduce un número válido:");
-            System.out.println("-->");
+            System.out.print("-->");
             entradaTeclado.next();
         }
         return entradaTeclado.nextInt();
     }
 
-    // Método para leer la respuesta del usuario.
-    public static String leerRespuesta() {
+    // Método para comprobar la opción de tipo String del usuario.
+    public static String leerOpcionString() {
+        String entrada;
+        do {
+            if (entradaTeclado.hasNextLine()) { // Limpiar el buffer.
+                entradaTeclado.nextLine();
+            }
+            entrada = entradaTeclado.nextLine().trim();
+            if (!entrada.matches("^[a-zA-Z]+$")) {
+                System.out.println("\nError: Introduce una palabra válida.");
+                System.out.print("-->");
+                entrada = entradaTeclado.next();
+            }
+        } while (!entrada.matches("^[a-zA-Z]+$"));
+        return entrada;
+    }
+
+    // Método para comprobar la respuesta al menu 2 del usuario.
+    public static String leerOpcionMenuDos() {
         return entradaTeclado.next().trim().toUpperCase();
     }
 
     // Método que llama al método correspondiente según la opción elegida.
     public static void opcionElegida(int opcion) {
         switch (opcion) { //Este tipo de switch me lo ha sugerido el vs code como corrección. Lo crea más compacto y no hay que usar break.
+
+            // case 1: cantidadDigitos();
             case 1 -> {
                 System.out.print("\nIntroduce un número: ");
-                int numeroIntroducido = entradaTeclado.nextInt();
+                int numeroIntroducido = leerOpcionInt(); // Se llama al método leerOpcion() para validar la entrada.
                 System.out.println("\nEl resultado es: " + cantidadDigitos(numeroIntroducido));
             }
+
+            // case 2: elevarNumeroAOtro();
             case 2 -> {
                 System.out.print("\nIntroduce la base: ");
-                int base = entradaTeclado.nextInt();
-                System.out.print("Introduce el exponente: ");
-                int exponente = entradaTeclado.nextInt();
+                int base = leerOpcionInt();
+                System.out.print("\nIntroduce el exponente: ");
+                int exponente = leerOpcionInt();
                 System.out.println("\nEl resultado es: " + elevarNumeroAOtro(base, exponente));
             }
+
+            // case 3: Invertir número o cadena.
             case 3 -> {
-                System.out.print("\nIntroduce un número: ");
-                int numeroIntroducido = entradaTeclado.nextInt();
-                System.out.print("\nEl número invertido es: ");
-                numeroInvertido(numeroIntroducido);
-                System.out.println();
-            }
-            case 4 -> {
-                System.out.print("\nIntroduce una palabra: ");
-                String palabraIntroducida = entradaTeclado.next();
-                System.out.print("\nLa palabra invertida es: ");
-                palabraInvertida(palabraIntroducida.length() - 1, palabraIntroducida);
-                System.out.println();
-            }
-            case 5 -> {
-                System.out.print("\nIntroduce un número: ");
-                int numeroIntroducido = entradaTeclado.nextInt();
-                comprobarNumeroBinario(numeroIntroducido);
-            }
-            case 6 -> {
-                System.out.print("\nIntroduce un número: ");
-                int numeroIntroducido = entradaTeclado.nextInt();
-                System.out.print("\nEl número binario es: ");
-                obtenerNumeroBinario(numeroIntroducido);
-                System.out.println();
-            }
-            case 7 -> {
-                if (comprobarPalabraOrdenada(0)) {
-                    System.out.println("La palabra está ordenada.");
-                } else {
-                    System.out.println("La palabra no está ordenada.");
+                while (true) {
+                    System.out.println("\n¿Qué quieres invertir?");
+                    System.out.println("    [1] - Número");
+                    System.out.println("    [2] - Cadena");
+                    System.out.println("    [3] - Volver al menú principal");
+                    System.out.println("    [4] - Salir");
+                    System.out.print("->");
+                    int opcionDos = leerOpcionInt();
+            
+                    switch (opcionDos) {
+                        case 1 -> {
+                            // Invertir número
+                            System.out.print("\nIntroduce un número: ");
+                            int numero = leerOpcionInt();
+                            System.out.print("\nEl número invertido es: ");
+                            numeroInvertido(numero);
+                            System.out.println();
+                        }
+                        case 2 -> {
+                            // Invertir cadena
+                            System.out.print("\nIntroduce una cadena: ");
+                            String cadena = leerOpcionString();
+                            System.out.print("\nLa cadena invertida es: ");
+                            palabraInvertida(cadena.length() - 1, cadena);
+                            System.out.println();
+                        }
+                        case 3 -> {
+                            return;
+                        }
+                        case 4 -> {
+                            System.exit(0);
+                        }
+                    }
                 }
             }
-            case 8 -> {
+            
+            // case 4: comprobarNumeroBinario();
+            case 4 -> {
                 System.out.print("\nIntroduce un número: ");
-                int numeroIntroducido = entradaTeclado.nextInt();
-                System.out.println("\nLa suma de los números naturales es: " + sumaNumerosNaturales(numeroIntroducido));
+                int numeroIntroducido = leerOpcionInt();
+    
+                if(comprobarNumeroBinario(numeroIntroducido)){
+                    System.out.println("--> Es binario...");
+                }else{
+                    System.out.println("--> NO es binario...");
+                }
             }
+
+            // case 5: obtenerNumeroBinario();
+            case 5 -> {
+                System.out.print("\nIntroduce un número: ");
+                int numeroIntroducido = leerOpcionInt();
+                String numeroBinario = obtenerNumeroBinario(numeroIntroducido);
+                System.out.println("\nEl número binario es: " + numeroBinario);
+            }
+
+            // case 6: comprobarPalabraOrdenada();
+            case 6 -> {
+                System.out.print("\nIntroduce una palabra: ");
+                String palabra = leerOpcionString();
+                palabra_vector = palabra.toCharArray();
+            
+                if (comprobarPalabraOrdenada(0)) {
+                    System.out.println("\nLa palabra está ordenada.");
+                } else {
+                    System.out.println("\nLa palabra no está ordenada.");
+                }
+            }
+            
+            // case 7: sumaNumerosNaturales();
+            case 7 -> {
+                System.out.print("\nIntroduce un número: ");
+                int numeroIntroducido = leerOpcionInt();
+                System.out.println("\nLa suma de los números naturales es: " + sumaResultado(numeroIntroducido));
+            }
+
+            // case 8: Salir del programa.
+            case 8 -> System.exit(0);
         }
     }
 
@@ -168,7 +224,7 @@ public class Recursividad {
         if (numero < 10) {
             return 1;
         } else {
-            return 1 + cantidadDigitos(numero / 10); // Llamada recursiva dividiendo entre 10.
+            return 1 + cantidadDigitos(numero / 10);
         }
     }
 
@@ -178,11 +234,11 @@ public class Recursividad {
         if (exponente == 0) {
             return 1;
         } else {
-            return base * elevarNumeroAOtro(base, --exponente); // Llamada recursiva restando 1 al exponente.
+            return base * elevarNumeroAOtro(base, --exponente);
         }
     }
 
-    //EJERCICIO-3
+    //EJERCICIO-3.0
     // Método para invertir un número positivo.
     public static void numeroInvertido(int numero) {
         if(numero >= 0 && numero < 10){
@@ -193,7 +249,7 @@ public class Recursividad {
         }
     }
 
-    //EJERCICIO-4
+    //EJERCICIO-3.1
     // Método para invertir una palabra.
     public static void palabraInvertida(int posicion, String palabra) {
         char[] palabraArray = palabra.toCharArray();
@@ -205,44 +261,30 @@ public class Recursividad {
         }
     }
 
-    //EJERCICIO-5
+    //EJERCICIO-4
     // Método para comprobar si un número es binario.
     public static boolean comprobarNumeroBinario(int numero) {
-        if (numero == 0 || numero == 1) {
-            System.out.println("El número es binario.");
-            return true;
-        } else {
-            if (numero % 10 > 1) {
-                System.out.println("El número no es binario.");
-                return false;
-            } else {
+        if(numero > 9){
+            if(numero % 10 == 0 || numero % 10 == 1){
                 return comprobarNumeroBinario(numero / 10);
-            
+            }else{
+                return false;
             }
+        }
+        return numero == 0 || numero == 1;
+    }
+
+    //EJERCICIO-5
+    // Método que obtiene el número binario de un número N pasado como parámetro.
+    public static String obtenerNumeroBinario(int numero) {
+        if(numero==0 || numero==1){
+            return Integer.toString(numero);
+        }else{
+            return obtenerNumeroBinario(numero/2)+numero%2;
         }
     }
 
     //EJERCICIO-6
-    // Método que obtiene el número binario de un número N pasado como parámetro.
-    public static void obtenerNumeroBinario(int numero) {
-        if (numero == 0) {
-            System.out.print("0");
-        } else {
-            obtenerNumeroBinario(numero / 2);
-            System.out.print(numero % 2);
-        }
-    }
-
-    // Ejercicio 6 - Otra forma
-    public static String aBinario(int numero) {
-        if (numero == 0 || numero == 1) {
-            return Integer.toString(numero);
-        } else {
-            return aBinario(numero / 2) + numero % 2;
-        }
-    }
-
-    //EJERCICIO-7
     // Método que comprueba si una palabra está ordenada alfabéticamente.
     public static boolean comprobarPalabraOrdenada(int posicion) {
         if (posicion < palabra_vector.length - 1) {
@@ -255,13 +297,22 @@ public class Recursividad {
         return true;
     } 
 
-    //EJERCICIO-8
+    //EJERCICIO-7.0
     // Método que obtiene la suma de los números naturales desde 1 hasta N.
-    public static int sumaNumerosNaturales(int numero) {
+    public static String sumaNumerosNaturales(int numero) {
         if (numero == 1) {
-            return 1;
+            return "1"; 
         } else {
-            return numero + sumaNumerosNaturales(numero - 1);
+            String resultado = sumaNumerosNaturales(numero - 1);
+            return resultado + " + " + numero; 
         }
+    }
+
+    //EJERCICIO-7.1
+    // Método para calcular la suma total.
+    public static String sumaResultado(int numero) {
+        String sumaCadena = sumaNumerosNaturales(numero); 
+        int sumaTotal = (numero * (numero + 1)) / 2; 
+        return sumaCadena + " = " + sumaTotal;
     }
 }
